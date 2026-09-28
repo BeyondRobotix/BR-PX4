@@ -61,9 +61,15 @@ boards/beyondrobotix/brcore/nuttx.sh br         # back to BeyondRobotix/NuttX
 ```
 
 `br` is the commit this branch records, so a fresh clone with
-`git submodule update --init --recursive` already has it. While on `upstream`,
-`git status` shows the NuttX submodule as modified: don't commit that, switch
-back with `br`.
+`git submodule update --init --recursive` already has it.
+
+While on `upstream`:
+
+- Build with `GIT_SUBMODULES_ARE_EVIL=1 make beyondrobotix_brcore_default`.
+  Otherwise PX4's submodule check stops the build because NuttX is not at the
+  recorded commit (with `CI=true` it resets NuttX instead).
+- `git status` shows the NuttX submodule as modified. Don't commit that;
+  switch back with `br`.
 
 The board builds with either. With upstream NuttX the BR-only options are
 ignored and the board behaves as it would without the fixes.

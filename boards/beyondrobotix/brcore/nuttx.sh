@@ -80,7 +80,10 @@ br)
 	;;
 upstream)
 	switch_to upstream "$UPSTREAM_URL" "$UPSTREAM_COMMIT"
-	echo "Note: git status now shows $nuttx_path as modified. Do not commit that;"
+	echo "Build with GIT_SUBMODULES_ARE_EVIL=1, otherwise PX4's submodule check stops"
+	echo "the build (or, with CI=true, resets NuttX to the recorded commit):"
+	echo "  GIT_SUBMODULES_ARE_EVIL=1 make beyondrobotix_brcore_default"
+	echo "git status now shows $nuttx_path as modified. Do not commit that;"
 	echo "run '$0 br' to return to the recorded commit."
 	;;
 *)
