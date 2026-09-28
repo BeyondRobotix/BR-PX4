@@ -132,10 +132,8 @@
 
 /* IMU heater */
 
-#define GPIO_HEATER_OUTPUT
-#define HEATER_NUM                      1
-#define GPIO_HEATER1_OUTPUT             /* PG4  */ (GPIO_OUTPUT|GPIO_PUSHPULL|GPIO_SPEED_2MHz|GPIO_OUTPUT_CLEAR|GPIO_PORTG|GPIO_PIN4)
-#define HEATER1_OUTPUT_EN(on_true)      px4_arch_gpiowrite(GPIO_HEATER1_OUTPUT, (on_true))
+#define GPIO_HEATER_OUTPUT              /* PG4  */ (GPIO_OUTPUT|GPIO_PUSHPULL|GPIO_SPEED_2MHz|GPIO_OUTPUT_CLEAR|GPIO_PORTG|GPIO_PIN4)
+#define HEATER_OUTPUT_EN(on_true)       px4_arch_gpiowrite(GPIO_HEATER_OUTPUT, (on_true))
 
 
 /* PWM
@@ -192,7 +190,7 @@
 		GPIO_PINIO1, \
 		GPIO_PINIO2, \
 		GPIO_PINIO3, \
-		GPIO_HEATER1_OUTPUT, \
+		GPIO_HEATER_OUTPUT, \
 		GPIO_OTGFS_VBUS, \
 	}
 

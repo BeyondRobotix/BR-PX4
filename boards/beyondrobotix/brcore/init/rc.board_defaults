@@ -5,7 +5,8 @@
 
 # IMU heater
 param set-default SENS_EN_THERMAL 1
-param set-default HEATER1_TEMP 45
+param set-default SENS_IMU_TEMP 45
+param set-default SENS_TEMP_ID 2818074 # IMU1: IIM-42652 on SPI3
 
 # Mavlink ethernet (CFG 1000)
 param set-default MAV_2_CONFIG 1000

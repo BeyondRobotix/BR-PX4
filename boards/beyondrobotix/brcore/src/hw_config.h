@@ -47,6 +47,8 @@
  *
  * Constant                example          Usage
  * APP_LOAD_ADDRESS     0x08004000            - The address in Linker Script, where the app fw is org-ed
+ * BOOT_DELAY_ADDRESS   0x000001a0            - (Optional) From the linker script from Linker Script to get a custom
+ *                                               delay provided by an APP FW
  * BOOTLOADER_DELAY     5000                  - Ms to wait while under USB pwr or bootloader request
  * BOARD_FMUV2
  * INTERFACE_USB        1                     - (Optional) Scan and use the USB interface for bootloading
@@ -85,6 +87,7 @@
 #define SERIAL1_DEV    0x04
 
 #define APP_LOAD_ADDRESS               0x08020000
+#define BOOT_DELAY_ADDRESS             0x000001a0
 #define BOOTLOADER_DELAY               5000
 #define INTERFACE_USB                  1
 #define INTERFACE_USB_CONFIG           "/dev/ttyACM0"
