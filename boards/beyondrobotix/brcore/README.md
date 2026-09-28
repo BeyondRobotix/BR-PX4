@@ -72,7 +72,7 @@ While on `upstream`:
   switch back with `br`.
 
 The board builds with either. With upstream NuttX the BR-only options are
-ignored and the board behaves as it would without the fixes.
+ignored; see the note below on large file support.
 
 ### BR NuttX changes
 
@@ -84,6 +84,15 @@ Branch `br/sdmmc1-idma-bounce`, on top of the PX4 v1.17.0 NuttX commit:
   (about 150 KB/s). The board now copies them through a 16 KB AXI SRAM buffer
   (`CONFIG_MMCSD_MULTIBLOCK_LIMIT=32`). On the same card: writes 1.1 MB/s
   (4 KB blocks) to 2.7 MB/s (16 KB blocks), reads 5-7 MB/s.
+- **Large file support**: cherry-pick of PX4/NuttX#388, which PX4 merged after
+  v1.17.0. With it, `CONFIG_FS_LARGEFILE=y` gives 64-bit file sizes, as PX4
+  `main` enables for boards with SD cards (PX4-Autopilot#28043). Without it,
+  cards over 4 GB show the wrong size in `df` (a 64 GB card showed 3.5 GB).
+  PX4's logger and MAVLink storage reports were already correct.
+
+`upstream` lacks both, so the SD card is slow and large file support is
+unreliable there (PX4/NuttX#388 explains why). Use it to compare against stock
+NuttX, not for flight firmware.
 
 When moving BR-Core to a newer PX4 release, rebase this branch onto the NuttX
 commit that release pins, update `UPSTREAM_COMMIT` in `nuttx.sh`, and record
