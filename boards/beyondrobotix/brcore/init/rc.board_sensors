@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# BR Core specific sensors init
+#------------------------------------------------------------------------------
+
+board_adc start
+
+# PX4's IMU drivers already map the chip frame to FRD (a roll of 180 deg relative to
+# ArduPilot's raw chip frame), so rotations differ from the ArduPilot hwdef by ROLL_180.
+
+# Internal SPI3: IIM-42652 (IMU1) and MS5611 (BARO1)
+iim42652 -s -b 3 -R 2 start
+ms5611 -s -b 3 start
+
+# Internal SPI4: IIM-42652 (IMU2) and MS5611 (BARO2)
+iim42652 -s -b 4 -R 6 start
+ms5611 -s -b 4 start
+
+# Internal SPI2: BMI088 (IMU3)
+bmi088 -A -s -b 2 -R 12 start
+bmi088 -G -s -b 2 -R 12 start
+
+# Internal I2C3: BMM350 magnetometer
+bmm350 -I -b 3 -R 10 start
