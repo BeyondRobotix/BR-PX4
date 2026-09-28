@@ -41,7 +41,13 @@
 #include <nuttx/usb/usbdev.h>
 #include <nuttx/usb/usbdev_trace.h>
 #include <stm32_otg.h>
+#include <stm32_rcc.h>
+#include "arm_internal.h"
 #include <debug.h>
+
+#ifndef RCC_AHB1LPENR_USB2OTGFSULPILPEN
+#  define RCC_AHB1LPENR_USB2OTGFSULPILPEN (1 << 28) /* RCC AHB1LPENR: USB2OTGFSULPILPEN */
+#endif
 
 /************************************************************************************
  * Name: stm32_usbinitialize
@@ -59,6 +65,14 @@ __EXPORT void stm32_usbinitialize(void)
 
 #ifdef CONFIG_STM32F7_OTGFS
 	stm32_configgpio(GPIO_OTGFS_VBUS);
+#endif
+
+#if defined(CONFIG_ARCH_IDLE_CUSTOM)
+	/* OTG FS runs on its internal PHY. Keep the unused ULPI clock off in sleep
+	 * mode, otherwise USB stops while the idle loop waits in WFI (ArduPilot's
+	 * ChibiOS does the same for this port).
+	 */
+	modifyreg32(STM32_RCC_AHB1LPENR, RCC_AHB1LPENR_USB2OTGFSULPILPEN, 0);
 #endif
 }
 
