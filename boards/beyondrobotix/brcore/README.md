@@ -117,5 +117,8 @@ the new commit in the submodule.
 - Board ID 8000 is provisional. Register an ID through a pull request to
   ArduPilot's `Tools/AP_Bootloader/board_types.txt`, then update
   `src/hw_config.h` and `firmware.prototype`.
-- USB VID/PID `1209:5740` belongs to ArduPilot. Use a BR ID in both
-  defconfigs.
+- USB VID/PID `1209:5741` is ArduPilot's single-CDC ID, used until Beyond
+  Robotix has its own (for example from pid.codes). Do not use `1209:5740`:
+  Mission Planner's Windows driver binds it as ArduPilot's composite device,
+  which splits PX4's single CDC ACM port so it will not open. Set the new ID
+  in both defconfigs.
